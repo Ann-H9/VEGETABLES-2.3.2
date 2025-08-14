@@ -1,0 +1,8 @@
+@use '@/shared/assets/styles/fonts.scss';
+@use '@/shared/assets/styles/theme.scss' as *;
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  margin: 0;
+  background-color: $base-color;
+}
