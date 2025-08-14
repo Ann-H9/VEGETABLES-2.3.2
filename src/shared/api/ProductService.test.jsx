@@ -27,7 +27,7 @@ describe('fetchProduct', () => {
     it('бросает ошибку с сообщением "не удалось получить данные", когда ok=false', async () => {
         fetchMock.mockResolvedValue({
             ok: false,
-            json: vi.fn() // не должен вызываться
+            json: vi.fn()
         });
         await expect(fetchProduct()).rejects.toThrow('не удалось получить данные');
         expect(fetchMock).toHaveBeenCalledWith(URL);

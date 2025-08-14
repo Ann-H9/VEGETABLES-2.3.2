@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.module.scss';
 import Header from '@/features/components/Header/Header';
 import ProductsList from '@/features/components/ProductList/ProductList';
 import Title from '@/features/components/Title/Title';

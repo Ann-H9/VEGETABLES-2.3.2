@@ -5,11 +5,10 @@ const URL =
   'https://res.cloudinary.com/sivadass/raw/upload/v1535817394/json/products.json';
 
 describe('fetchProduct', () => {
-  let fetchMock: ReturnType<typeof vi.fn>;
+  let fetchMock: typeof fetch;
 
   beforeEach(() => {
-    fetchMock = vi.fn();
-  
+    fetchMock = vi.fn() as unknown as typeof fetch;
     globalThis.fetch = fetchMock;
   });
 
@@ -23,7 +22,7 @@ describe('fetchProduct', () => {
       { id: 2, name: 'Tomato - 1 Kg', price: 2, image: '/tomato.png' }
     ];
 
-    fetchMock.mockResolvedValue({
+    (fetchMock as any).mockResolvedValue({
       ok: true,
       json: vi.fn().mockResolvedValue(mockProducts)
     });
@@ -36,9 +35,9 @@ describe('fetchProduct', () => {
   });
 
   it('бросает ошибку с сообщением "не удалось получить данные", когда ok=false', async () => {
-    fetchMock.mockResolvedValue({
+    (fetchMock as any).mockResolvedValue({
       ok: false,
-      json: vi.fn() // не должен вызываться
+      json: vi.fn()
     });
 
     await expect(fetchProduct()).rejects.toThrow('не удалось получить данные');
@@ -47,7 +46,7 @@ describe('fetchProduct', () => {
 
   it('пробрасывает сетевую ошибку и логирует "Не работает"', async () => {
     const networkError = new Error('Network down');
-    fetchMock.mockRejectedValue(networkError);
+    (fetchMock as any).mockRejectedValue(networkError);
 
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
